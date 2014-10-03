@@ -88,10 +88,10 @@ func loadBaseConfigFile(cfg Configuration) error {
 	return nil
 }
 
-func setConfig(config_filename *string, executable_name string,
+func SetConfig(config_filename *string, executable_name string,
 	cfg Configuration) (string, error) {
 
-	BASE_PATH = getBasePathForExecutable(executable_name)
+	BASE_PATH = GetBasePathForExecutable(executable_name)
 
 	used_config_filename, config_err := GetConfig(*config_filename, cfg)
 	if config_err != nil {

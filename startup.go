@@ -9,14 +9,14 @@ import (
 	"strings"
 )
 
-func setMaxProcs() int {
+func SetMaxProcs() int {
 	procs := runtime.NumCPU()
 	runtime.GOMAXPROCS(procs)
 
 	return procs
 }
 
-func printStartupMsg(max_procs int, description string, version string,
+func PrintStartupMsg(max_procs int, description string, version string,
 	config_filename string) {
 
 	fmt.Printf("STARTUP: %s\n", description)
@@ -28,7 +28,7 @@ func printStartupMsg(max_procs int, description string, version string,
 
 /* Extracts the middle directory structure for the run executable. This can be
 concatenated with os.Getwd() to get the absolute path of the project root. */
-func getBasePathForExecutable(exec string) string {
+func GetBasePathForExecutable(exec string) string {
 	wd, wd_err := os.Getwd()
 	if wd_err != nil {
 		log.Fatalf("ERROR: Unable to get current working directory.")
@@ -47,7 +47,7 @@ func getBasePathForExecutable(exec string) string {
 
 /* Use the contents of /home/cast/.hostname file if it exists,
 otherwise use os.Hostname(). This is to circumvent Joyent uuid hostnames. */
-func getHostname() (string, error) {
+func GetHostname() (string, error) {
 	hn_bytes, err := ioutil.ReadFile("/home/cast/.hostname")
 	if err != nil {
 		hn, err := os.Hostname()

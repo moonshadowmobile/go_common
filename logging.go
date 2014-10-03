@@ -37,7 +37,7 @@ func Fatalln(logger *log.Logger, msg string) {
 }
 
 /* Set standard error log destination */
-func setSysLog(logpath string) {
+func SetSysLog(logpath string) {
 	err := os.MkdirAll(logpath, 0755)
 	if err != nil {
 		log.Fatalf("ERROR: Could not generate log paths. %s", err.Error())
