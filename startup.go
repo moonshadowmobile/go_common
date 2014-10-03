@@ -2,7 +2,7 @@ package go_common
 
 import (
 	"fmt"
-	"ioutil"
+	"io/ioutil"
 	"log"
 	"os"
 	"runtime"

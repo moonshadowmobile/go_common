@@ -7,6 +7,8 @@ import (
 	"os"
 )
 
+var BASE_PATH = ""
+
 type Configuration interface{}
 type BaseConfig struct {
 	Description    string
@@ -33,7 +35,7 @@ type PostgreSQLConfiguration struct {
 /* Attempts to retreive the configuration file with the given name and load
 it. On failure, prints a warning and loads the base_config.json file. */
 func GetConfig(filename string, cfg Configuration) (string, error) {
-	base_config_err := loadBaseConfigFile()
+	base_config_err := loadBaseConfigFile(cfg)
 	if base_config_err != nil {
 		return "", base_config_err
 	}
@@ -44,7 +46,7 @@ func GetConfig(filename string, cfg Configuration) (string, error) {
 		// Use the base config
 		fmt.Printf("WARNING: configuration file '%s' was not found in maestro/etc. "+
 			"Using default instead (base_config.json).\n", filename)
-		base_config_err := loadBaseConfigFile()
+		base_config_err := loadBaseConfigFile(cfg)
 		if base_config_err != nil {
 			return "", base_config_err
 		}
@@ -73,13 +75,13 @@ func parseConfigFile(config_file *os.File, cfg Configuration) error {
 	return nil
 }
 
-func loadBaseConfigFile() error {
+func loadBaseConfigFile(cfg Configuration) error {
 	base_config_file, err := os.OpenFile(BASE_PATH+"etc/base_config.json",
 		os.O_RDONLY, 0655)
 	if err != nil {
 		return err
 	}
-	parse_err := parseConfigFile(base_config_file)
+	parse_err := parseConfigFile(base_config_file, cfg)
 	if parse_err != nil {
 		return parse_err
 	}

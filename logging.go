@@ -6,14 +6,13 @@ import (
 	"log"
 	"os"
 	"strings"
-	"strings"
 	"time"
 )
 
 /* Creates a new Logger and returns a pointer to that Logger. */
-func GetLogger(log_name string) (*log.Logger, error) {
+func GetLogger(log_path string, log_name string) (*log.Logger, error) {
 	log_file, err := os.OpenFile(
-		strings.Join([]string{C.LogPath, log_name}, ""),
+		strings.Join([]string{log_path, log_name}, ""),
 		os.O_CREATE|os.O_APPEND|os.O_WRONLY,
 		0777,
 	)
