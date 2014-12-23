@@ -43,13 +43,11 @@ func CreateRabbitMQManager(rmqc *RabbitMQConfig) (*RabbitMQManager, error) {
 		cfg.RootCAs = x509.NewCertPool()
 		ca, err := ioutil.ReadFile(rmqtls.Ca)
 		if err != nil {
-			fmt.Println("can't read ca file")
 			return nil, err
 		}
 		cfg.RootCAs.AppendCertsFromPEM(ca)
 		cert, err := tls.LoadX509KeyPair(rmqtls.Cert, rmqtls.Key)
 		if err != nil {
-			fmt.Println("cant read cert or key")
 			return nil, err
 		}
 		cfg.Certificates = append(cfg.Certificates, cert)
