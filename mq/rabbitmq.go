@@ -1,7 +1,6 @@
 package mq
 
 import (
-	"fmt"
 	"crypto/tls"
 	"crypto/x509"
 	"github.com/streadway/amqp"
