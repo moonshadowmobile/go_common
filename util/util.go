@@ -11,7 +11,20 @@ import (
 	"fmt"
 	"runtime"
 	"syscall"
+	"crypto/rand"
 )
+
+func UUID() string {
+	b := make([]byte, 16)
+	_, err := rand.Read(b)
+	if err != nil {
+		log.Fatalln("uuid error: ", err.Error())
+		return ""
+	}
+	b[6] = (b[6] & 0x0f) | 0x40
+	b[8] = (b[8] & 0x3f) | 0x80
+	return fmt.Sprintf("%x-%x-%x-%x-%x", b[0:4], b[4:6], b[6:8], b[8:10], b[10:])
+}
 
 /* Extracts the middle directory structure for the run executable. This can be
 concatenated with os.Getwd() to get the absolute path of the project root. */
